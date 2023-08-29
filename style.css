@@ -1,0 +1,134 @@
+*, *::after, *::before {
+    box-sizing: border-box;
+}
+
+body {
+    background-image: url(photos/space.png);
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 8px;
+    font-size: 20px;
+    height: 100%;
+    width: 100%;
+}
+
+.title {
+    color: rgb(255, 232, 31);
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2rem;
+}
+
+.guessForm {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+
+.guessInput {
+    font-size: inherit;
+    margin-right: 1rem;
+    width: 300px;
+}
+
+.guessButton{
+    font-size: inherit;
+    height: 1.5em;
+}
+
+.grid-container {
+    display: grid;
+    justify-content: center;
+    align-content: center;
+    flex-grow: 1;
+    grid-template-columns: repeat(4, 4em);
+    grid-template-rows: 4em;
+    gap: .25em;
+    color: white;
+    margin-bottom: .25em;
+}
+
+.grid-header {
+    border: .05em solid hsl(240, 2%, 23%);
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    user-select: none;
+}
+
+.grid-item {
+    border: .05em solid hsl(240, 2%, 23%);
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    user-select: none;
+    transition: transform 500ms ease-in;
+}
+
+.grid-item.flip{
+    transform: rotateY(90deg);
+}
+
+.grid-item[data-state = "Correct"] {
+    background-color: green;
+}
+
+.grid-item[data-state = "Incorrect"] {
+    background-color: red;
+}
+
+.alert-container {
+    position: fixed;
+    top: 10vh;
+    left: 50vw;
+    transform: translateX(-50%);
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.alert{
+    pointer-events: none;
+    background-color: hsl(204, 7%, 85%);
+    padding: .75em;
+    border-radius: .25em;
+    opacity: 1;
+    transition: opacity 500ms ease-in-out;
+    margin-bottom: .5em;
+}
+
+.alert:last-child{
+    margin-bottom: 0;
+}
+
+.alert.hide {
+    opacity: 0;
+}
+
+.autocomplete-list {
+    position: absolute;
+    width: 300px;
+    margin-right: 1.05rem;
+    cursor: pointer;
+    user-select: none;
+}
+
+.autocomplete-name {
+    background-color: white;
+    text-align: center;
+    padding-top: .5rem;
+}
+
+.autocomplete-info {
+    background-color: white;
+    text-align: center;
+    padding-bottom: .5rem;
+    font-size: .75em;
+    border-bottom: 1px solid lightgray;
+}
