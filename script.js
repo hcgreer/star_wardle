@@ -6,13 +6,17 @@ const guessForm = document.querySelector("[data-guess-form]");
 const guessInput = document.querySelector("[data-guess-input]");
 const resultContainer = document.querySelector("[data-result-container]");
 let headerShown = false;
-let winner = false;
 const alertContainer = document.querySelector("[data-alert-container]");
 const autocompleteList = document.querySelector("[data-autocomplete-list]");
+const currentDate = new Date();
+const currentDay = currentDate.getDay();
 
 window.onload = function() {
+    newDayCheck();
     useStoredGuesses();
+    returnState();
 }
+
 submitGuess();
 
 function submitGuess() {
@@ -97,7 +101,6 @@ function showAlert(message, duration = 1000) {
   }
 
 function checkWin() {
-    winner = true;
     showAlert("You Win!", duration = 5000)
     guessForm.remove()
 }
@@ -164,6 +167,64 @@ function useStoredGuesses() {
     const storedGuesses = localStorage.getItem('currentGuesses');
     if (storedGuesses) {
         currentGuesses = JSON.parse(storedGuesses);
-        console.log(currentGuesses);
+    }
+}
+
+function newDayCheck() {
+    const storedDate = localStorage.getItem('date');
+    if (storedDate) {
+        if (storedDate < currentDay || currentDay === 1) {
+            localStorage.removeItem('currentGuesses')
+        } 
+    }
+    else{
+        localStorage.setItem('date', currentDay);
+    }
+}
+
+function returnState() {
+    const headerRow = document.createElement("div");
+    headerRow.classList.add("grid-container");
+    headerRow.innerHTML = `
+        <div class="grid-header">Name</div>
+        <div class="grid-header">Gender</div>
+        <div class="grid-header">Species</div>
+        <div class="grid-header">Home World</div>
+    `;
+    resultContainer.appendChild(headerRow);
+    headerShown = true;
+
+    currentGuesses.forEach(guess => {
+        const guessCharacter = characters.find((p) => {
+            return p.name.toLowerCase() === guess.toLowerCase();
+        });
+        const newGuess = document.createElement("div");
+        newGuess.classList.add("grid-container");
+        buildGuessGrid(newGuess, guessCharacter.name, targetCharacter.name, guessCharacter.name);
+        buildGuessGrid(newGuess, guessCharacter.gender, targetCharacter.gender, guessCharacter.name);
+        buildGuessGrid(newGuess, guessCharacter.species, targetCharacter.species, guessCharacter.name);
+        buildGuessGrid(newGuess, guessCharacter.homeworld, targetCharacter.homeworld, guessCharacter.name);
+        resultContainer.insertBefore(newGuess, resultContainer.children[1]);
+        if (guess !== targetCharacter.name) return;
+        checkWin();
+    });
+}
+
+function buildGuessGrid(newGuess, guess, target, name) {
+    const clueCell = document.createElement("div");
+    clueCell.classList.add("grid-item");
+    clueCell.textContent = guess;
+
+    if (guess === name) {
+        newGuess.appendChild(clueCell);
+    }
+    else {
+        if (guess === target) {
+            clueCell.dataset.state = "Correct";
+        }
+        else {
+            clueCell.dataset.state = "Incorrect";
+        }
+        newGuess.appendChild(clueCell);
     }
 }
