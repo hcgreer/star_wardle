@@ -183,6 +183,7 @@ function newDayCheck() {
 }
 
 function returnState() {
+    if (!currentGuesses) return
     const headerRow = document.createElement("div");
     headerRow.classList.add("grid-container");
     headerRow.innerHTML = `
