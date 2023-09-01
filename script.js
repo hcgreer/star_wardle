@@ -175,12 +175,10 @@ function newDayCheck() {
     const storedDate = localStorage.getItem('date');
     if (storedDate) {
         if (storedDate < currentDay || currentDay === 1) {
-            localStorage.removeItem('currentGuesses')
+            localStorage.removeItem('currentGuesses');
         } 
     }
-    else{
-        localStorage.setItem('date', currentDay);
-    }
+    localStorage.setItem('date', currentDay);
 }
 
 function returnState() {
