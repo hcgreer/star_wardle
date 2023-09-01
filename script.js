@@ -11,6 +11,7 @@ const autocompleteList = document.querySelector("[data-autocomplete-list]");
 const currentDate = new Date();
 const currentDay = currentDate.getDay();
 
+
 window.onload = function() {
     newDayCheck();
     useStoredGuesses();
@@ -183,7 +184,7 @@ function newDayCheck() {
 }
 
 function returnState() {
-    if (!currentGuesses) return
+    if (currentGuesses.length === 0) return;
     const headerRow = document.createElement("div");
     headerRow.classList.add("grid-container");
     headerRow.innerHTML = `
