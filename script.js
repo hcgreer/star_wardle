@@ -11,7 +11,6 @@ const autocompleteList = document.querySelector("[data-autocomplete-list]");
 const currentDate = new Date();
 const currentDay = currentDate.getDay();
 
-
 window.onload = function() {
     newDayCheck();
     useStoredGuesses();
@@ -87,23 +86,23 @@ function checkGuess(newGuess, guess, target, name) {
 }
 
 function showAlert(message, duration = 1000) {
-    const alert = document.createElement("div")
-    alert.textContent = message
-    alert.classList.add("alert")
-    alertContainer.prepend(alert)
-    if (duration === null) return
+    const alert = document.createElement("div");
+    alert.textContent = message;
+    alert.classList.add("alert");
+    alertContainer.prepend(alert);
+    if (duration === null) return;
 
     setTimeout(() => {
-      alert.classList.add("hide")
+      alert.classList.add("hide");
       alert.addEventListener("transitionend", () => {
-        alert.remove()
+        alert.remove();
       })
     }, duration)
   }
 
 function checkWin() {
-    showAlert("You Win!", duration = 5000)
-    guessForm.remove()
+    showWinAlert();
+    guessForm.remove();
 }
 
 function flipGrid(gridItem, index, array, guess) {
@@ -228,3 +227,18 @@ function buildGuessGrid(newGuess, guess, target, name) {
         newGuess.appendChild(clueCell);
     }
 }
+
+function showWinAlert() {
+    const alert = document.createElement("div");
+    alert.classList.add("win-alert");
+    alert.innerHTML = `
+    <div class="win-alert">
+        <button class="close-win" data-close-win-button>&times;</button>
+        <div class="message-container" id="message-container" data-message-container>
+            <h1>You Win!</h1>
+            <h3>Today's Character was ${targetCharacter.name}.</h3>
+        </div>
+    </div>
+    `
+    alertContainer.prepend(alert);
+  }

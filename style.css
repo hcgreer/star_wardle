@@ -13,11 +13,32 @@ body {
     width: 100%;
 }
 
+.header {
+    display: grid;
+    justify-content: center;
+    grid-template-columns: 100px 100px;
+    column-gap: 10px;
+    grid-template-areas: 
+        "header header"
+        "howToPlay stats";
+    margin-bottom: 1rem;
+}
+
 .title {
     color: rgb(255, 232, 31);
-    display: flex;
-    justify-content: center;
-    margin-bottom: 2rem;
+    text-align: center;
+    grid-area: header;
+}
+
+.how-to-play {
+    cursor: pointer;
+    grid-area: howToPlay;
+    cursor: pointer;
+}
+
+.stats {
+    cursor: pointer;
+    grid-area: stats;
 }
 
 .guessForm {
@@ -35,6 +56,7 @@ body {
 .guessButton{
     font-size: inherit;
     height: 1.5em;
+    cursor: pointer;
 }
 
 .grid-container {
@@ -131,4 +153,34 @@ body {
     padding-bottom: .5rem;
     font-size: .75em;
     border-bottom: 1px solid lightgray;
+}
+
+.win-alert {
+    display: flex;
+    flex-direction: column;
+    background-color: darkgrey;
+    color: black;
+    border-radius: 1rem;
+}
+
+.close-win {
+    cursor: pointer;
+    border: none;
+    outline: none;
+    background: none;
+    font-size: 1.25rem;
+    font-weight: bold;
+    align-self: flex-end;
+}
+
+.win-alert h1 {
+    text-align: center;
+}
+
+.win-alert h3 {
+    text-align: center;
+}
+
+.win-alert.hide {
+    opacity: 0;
 }
